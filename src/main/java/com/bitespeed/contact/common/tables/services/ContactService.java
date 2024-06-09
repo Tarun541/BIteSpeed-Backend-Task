@@ -33,6 +33,7 @@ public class ContactService {
         List<Contact> phoneMatches=contactRepository.findByPhoneNumber(phoneNumber);
 
         if(contact.isPresent()){
+            //if a record exist with email and phone number
             if("primary".equals(contact.get().getLinkPrecedence())){
                 return responseMapper.getResponse(contact.get());
             } else {
@@ -41,6 +42,7 @@ public class ContactService {
                 return responseMapper.getResponse(primary.get(), secondaryList);
             }
         }else if(emailMatches.size()!=0 && phoneMatches.size()!=0){
+            // two records exist with email matching with one record and phonenumber with another record
             Contact emailMatch = emailMatches.get(0);
             Contact phoneMatch = phoneMatches.get(0);
             if(emailMatch.getCreatedAt().isBefore(phoneMatch.getCreatedAt())){
@@ -55,6 +57,7 @@ public class ContactService {
                 return responseMapper.getResponse(phoneMatch,emailMatches);
             }
         }else if(emailMatches.size()!=0){
+            //record exist with only email matches
             Contact emailMatch=emailMatches.get(0);
             if(!Utility.isNullOrEmpty(phoneNumber)){
                 createNewContact(phoneNumber,email,emailMatch);
@@ -68,6 +71,7 @@ public class ContactService {
                 return responseMapper.getResponse(primary.get(), secondaryList);
             }
         }else if(phoneMatches.size()!=0){
+            //record exists with phonenumber matching
             Contact phoneMatch=phoneMatches.get(0);
             if(!Utility.isNullOrEmpty(email)){
                 createNewContact(phoneNumber,email,phoneMatch);
@@ -81,6 +85,7 @@ public class ContactService {
                 return responseMapper.getResponse(primary.get(), secondaryList);
             }
         }else{
+            //no record exist with either email or phone number
             Contact contact1=createNewContact(phoneNumber,email);
             return responseMapper.getResponse(contact1);
         }
@@ -89,6 +94,7 @@ public class ContactService {
 
 
     private Contact createNewContact(String phoneNumber, String email, Contact primaryContact) {
+        // creating a record with secondary status
         Contact newContact = new Contact();
         newContact.setPhoneNumber(phoneNumber);
         newContact.setEmail(email);
@@ -101,6 +107,7 @@ public class ContactService {
     }
 
     private Contact createNewContact(String phoneNumber, String email) {
+        // creating a record with primary status
         Contact newContact = new Contact();
         newContact.setPhoneNumber(phoneNumber);
         newContact.setEmail(email);
