@@ -1,4 +1,4 @@
-package com.bitespeed.contact.beans.request;
+package com.bitespeed.contact.common.bean.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

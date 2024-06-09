@@ -1,4 +1,4 @@
-package com.bitespeed.contact.utilities;
+package com.bitespeed.contact.common.utilities;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

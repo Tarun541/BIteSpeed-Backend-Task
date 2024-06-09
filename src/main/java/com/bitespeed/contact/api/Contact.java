@@ -1,7 +1,7 @@
 package com.bitespeed.contact.api;
 
-import com.bitespeed.contact.utilities.Utility;
-import com.bitespeed.contact.beans.request.ContactRequest;
+import com.bitespeed.contact.common.utilities.Utility;
+import com.bitespeed.contact.common.bean.request.ContactRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
