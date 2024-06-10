@@ -12,6 +12,7 @@
   }
 
 
+
 2. For the reference purpose to fetch all the records that are present in the database you can use the below URL
    Method: GET
    API ENDPOINT: https://bitespeed-backend-task-nmwt.onrender.com/get/identities
@@ -19,7 +20,6 @@
 
 
 Note (Please don't ignore 1st point):
-1. If the service is inactive for some time on render.com,  it may take 50 secs or more to respond for the first time, as mentioned in the render.com website. Please wait patiently for the first request response.
-2. This is developed using SPRINGBOOT and POSTGRESQL databases and hosted on render.com
-3. please get in touch with me if you face any issues. email:nagellatarun@gmail.com
+1. This is developed using SPRINGBOOT and POSTGRESQL databases and hosted on render.com
+2. please get in touch with me if you face any issues. email:nagellatarun@gmail.com
    
