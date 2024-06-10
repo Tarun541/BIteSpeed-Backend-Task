@@ -19,7 +19,7 @@
 
 
 
-Note (Please don't ignore 1st point):
+Note:
 1. This is developed using SPRINGBOOT and POSTGRESQL databases and hosted on render.com
 2. please get in touch with me if you face any issues. email:nagellatarun@gmail.com
    
