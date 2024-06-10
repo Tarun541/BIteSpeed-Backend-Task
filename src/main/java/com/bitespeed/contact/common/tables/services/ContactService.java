@@ -35,7 +35,8 @@ public class ContactService {
         if(contact.isPresent()){
             //if a record exist with email and phone number
             if("primary".equals(contact.get().getLinkPrecedence())){
-                return responseMapper.getResponse(contact.get());
+                List<Contact> secondaryList = contactRepository.findByLinkedId(contact.get().getId());
+                return responseMapper.getResponse(contact.get(),secondaryList);
             } else {
                 Optional<Contact> primary = contactRepository.findById(contact.get().getLinkedId());
                 List<Contact> secondaryList = contactRepository.findByLinkedId(contact.get().getLinkedId());
@@ -47,12 +48,12 @@ public class ContactService {
             Contact phoneMatch = phoneMatches.get(0);
             if(emailMatch.getCreatedAt().isBefore(phoneMatch.getCreatedAt())){
                 phoneMatch.setLinkPrecedence("secondary");
-                phoneMatch.setLinkedId(phoneMatch.getLinkedId());
+                phoneMatch.setLinkedId(emailMatch.getId());
                 contactRepository.save(phoneMatch);
                 return responseMapper.getResponse(emailMatch,phoneMatches);
             }else{
                 emailMatch.setLinkPrecedence("secondary");
-                emailMatch.setLinkedId(phoneMatch.getLinkedId());
+                emailMatch.setLinkedId(phoneMatch.getId());
                 contactRepository.save(emailMatch);
                 return responseMapper.getResponse(phoneMatch,emailMatches);
             }
@@ -98,7 +99,11 @@ public class ContactService {
         Contact newContact = new Contact();
         newContact.setPhoneNumber(phoneNumber);
         newContact.setEmail(email);
-        newContact.setLinkedId(primaryContact.getId());
+        if("primary".equals(primaryContact.getLinkPrecedence())){
+            newContact.setLinkedId(primaryContact.getId());
+        }else{
+            newContact.setLinkedId(primaryContact.getLinkedId());
+        }
         newContact.setLinkPrecedence("secondary");
         newContact.setCreatedAt(Utility.getZonedDateTimeStamp("UTC"));
         newContact.setUpdatedAt(Utility.getZonedDateTimeStamp("UTC"));
